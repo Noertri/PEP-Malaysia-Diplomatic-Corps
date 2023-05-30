@@ -1,6 +1,6 @@
 import httpx
 from bs4 import BeautifulSoup
-import asyncio
+import re
 
 
 client = httpx.Client(verify=False, timeout=5.0)
@@ -35,21 +35,25 @@ def main():
     tasks = list()
     for li in li_tags:
         country = li.select_one("div.link").get_text(strip=True, separator=" ")
-        container = li.select_one("ul.submenu>.container")
-        name = container.select_one("li b").get_text(strip=True, separator=" ")
-        a = container.select_one("li a").get("href", None)
+        containers = li.select("ul.submenu>.container:nth-child(1)")
+        for container in containers:
+            address = container.select_one("ul.submenu>.container:nth-child(1) div>div:nth-child(1) li").get_text(strip=True, separator=" ")
+            contacts = container.select_one("ul.submenu>.container:nth-child(1) div>div:nth-child(2) li").get_text(strip=True, separator="\n")
 
-        if a:
-            response2 = client.get(a)
+            space_patterns = re.compile(r"\s{2,}")
+
+            # a = container.select_one("li a").get("href", None)
+
+            # if a:
+            #     response2 = client.get(a)
 
             result = {
                 "country": country,
-                "name": name,
-                "link": a,
-                "status_code": response2.status_code
+                "address": space_patterns.sub(" ", address)
             }
 
             print(result)
+
             k += 1
 
 
