@@ -1,5 +1,9 @@
 import httpx
 from bs4 import BeautifulSoup
+import asyncio
+
+
+client = httpx.Client(verify=False, timeout=5.0)
 
 
 def main():
@@ -23,7 +27,31 @@ def main():
         'letter': '',
     }
 
-    client = httpx.Client(verify=False)
     response = client.get('https://www.kln.gov.my/overseas/index.php', params=params, headers=headers)
     souped = BeautifulSoup(response.content, "html.parser")
-    print(souped.prettify())
+    li_tags = souped.select("ul#why-choose>li")
+
+    k = 0
+    tasks = list()
+    for li in li_tags:
+        country = li.select_one("div.link").get_text(strip=True, separator=" ")
+        container = li.select_one("ul.submenu>.container")
+        name = container.select_one("li b").get_text(strip=True, separator=" ")
+        a = container.select_one("li a").get("href", None)
+
+        if a:
+            response2 = client.get(a)
+
+            result = {
+                "country": country,
+                "name": name,
+                "link": a,
+                "status_code": response2.status_code
+            }
+
+            print(result)
+            k += 1
+
+
+if __name__ == "__main__":
+    main()
