@@ -366,11 +366,101 @@ def main():
                     case "serbia":
                         r = client.get(a.replace("home", "head_mission"))
                         souped2 = BeautifulSoup(r.content, "html.parser")
-                        name = souped2.select_one("#_101_INSTANCE_2TQe_1414770 > div > p:nth-child(4) > b > span").get_text(strip=True, separator=" ")
-                        photo = souped2.select_one("#_101_INSTANCE_2TQe_1414770 > div > p:nth-child(1) > img").get("src", "")
+                        name = souped2.select_one("#_101_INSTANCE_2TQe_251812 > div > p:nth-child(3) > span > strong").get_text(strip=True, separator=" ")
+                        photo = souped2.select_one("#_101_INSTANCE_2TQe_251812 > div > p:nth-child(2) > img").get("src", "")
                         result['head_of_mission'] = space_patterns.sub(" ", name).title()
                         result["url"] = a
+                        result["photo_link"] = parse.urljoin(base_url, photo)
+                    case "singapore":
+                        r = client.get(a.replace("home", "head_mission"))
+                        souped2 = BeautifulSoup(r.content, "html.parser")
+                        name = souped2.select_one("#_101_INSTANCE_2TQe_296144 > div > table > tbody > tr:nth-child(17) > td:nth-child(1) > span > strong").get_text(strip=True, separator=" ")
+                        result['head_of_mission'] = space_patterns.sub(" ", name).title()
+                        result["url"] = a
+                    case "spain":
+                        r = client.get(a.replace("home", "head_mission"))
+                        souped2 = BeautifulSoup(r.content, "html.parser")
+                        name = souped2.select_one("#_101_INSTANCE_2TQe_374971 > div > table > tbody > tr:nth-child(10) > td > p:nth-child(5) > span > span").get_text(strip=True, separator=" ")
+                        result['head_of_mission'] = space_patterns.sub(" ", name).title()
+                        result["url"] = a
+                    case "sri lanka":
+                        r = client.get(a.replace("home", "head_mission"))
+                        souped2 = BeautifulSoup(r.content, "html.parser")
+                        name = souped2.select_one("#_101_INSTANCE_2TQe_1504591 > div > p:nth-child(1) > strong > span").get_text(strip=True, separator=" ")
+                        result['head_of_mission'] = space_patterns.sub(" ", name).title()
+                        result["url"] = a
+                    case "sudan":
+                        r = client.get(a.replace("home", "head_mission"))
+                        souped2 = BeautifulSoup(r.content, "html.parser")
+                        name = souped2.select_one("#_101_INSTANCE_2TQe_301711 > div > h1 > span > b > span").get_text(strip=True, separator=" ")
+                        result['head_of_mission'] = space_patterns.sub(" ", name).title()
+                        result["url"] = a
+                    case "sweden":
+                        r = client.get(a.replace("home", "home-based-staff"))
+                        souped2 = BeautifulSoup(r.content, "html.parser")
+                        name = souped2.select_one("#_101_INSTANCE_2TQe_591259 > div > p:nth-child(4) > span > b > font").get_text(strip=True, separator=" ")
+                        photo = souped2.select_one("#_101_INSTANCE_2TQe_591259 > div > p:nth-child(3) > img").get("src", "")
+                        result['head_of_mission'] = space_patterns.sub(" ", name).title()
+                        result["url"] = a
+                        result["photo_link"] = parse.urljoin(base_url, photo)
+                    case "taiwan":
+                        r = client.get(a.replace("home", "head_mission"))
+                        souped2 = BeautifulSoup(r.content, "html.parser")
+                        name = souped2.select_one("#_101_INSTANCE_2TQe_463350 > div > table > tbody > tr:nth-child(12) > td:nth-child(2) > p > strong > span").get_text(strip=True, separator=" ")
+                        result['head_of_mission'] = space_patterns.sub(" ", name).title()
+                        result["url"] = a
+                    case "thailand":
+                        r = client.get(a.replace("home", "head_mission"))
+                        souped2 = BeautifulSoup(r.content, "html.parser")
+                        name = souped2.select_one("#_101_INSTANCE_2TQe_211244 > div > p:nth-child(2) > span").get_text(strip=True, separator=" ")
+                        photo = souped2.select_one("#_101_INSTANCE_2TQe_211244 > div > p:nth-child(1) > img").get("src", "")
+                        result['head_of_mission'] = space_patterns.sub(" ", name).replace("-", "").title()
+                        result["url"] = a
+                        result["photo_link"] = parse.urljoin(base_url, photo)
+                    case "timor-leste":
+                        r = client.get(a.replace("home", "home-based-staff"))
+                        souped2 = BeautifulSoup(r.content, "html.parser")
+                        name = souped2.select_one("#_101_INSTANCE_2TQe_495591 > div > div > p:nth-child(7) > strong").get_text(strip=True, separator=" ")
+                        result['head_of_mission'] = space_patterns.sub(" ", name).replace("1.", "").title()
+                        result["url"] = a
+                    case "turkey":
+                        r = client.get(a.replace("home", "head_mission"))
+                        souped2 = BeautifulSoup(r.content, "html.parser")
+                        name = souped2.select_one("#_101_INSTANCE_2TQe_250425 > div > p:nth-child(4) > strong").get_text(strip=True, separator=" ")
+                        photo = souped2.select_one("#_101_INSTANCE_2TQe_250425 > div > p:nth-child(3) > img").get("src", "")
+                        result['head_of_mission'] = space_patterns.sub(" ", name).replace("-", "").title()
+                        result["url"] = a
                         result["photo_link"] = photo
+                    case "united arab emirates":
+                        r = client.get(a.replace("home", "head_mission"))
+                        souped2 = BeautifulSoup(r.content, "html.parser")
+                        name = souped2.select_one("#_101_INSTANCE_2TQe_249078 > div > div > p:nth-child(1) > strong > span > span > span").get_text(strip=True, separator=" ")
+                        result['head_of_mission'] = space_patterns.sub(" ", name).title()
+                        result["url"] = a
+                    case "united kingdom":
+                        r = client.get(a.replace("home", "head_mission"))
+                        souped2 = BeautifulSoup(r.content, "html.parser")
+                        name = souped2.select_one("#_101_INSTANCE_2TQe_384214 > div > p:nth-child(24) > strong > span").get_text(strip=True, separator=" ")
+                        result['head_of_mission'] = space_patterns.sub(" ", name).replace("(5/8/2021 -    )", "").title()
+                        result["url"] = a
+                    case "united states":
+                        r = client.get(a.replace("home", "head_mission"))
+                        souped2 = BeautifulSoup(r.content, "html.parser")
+                        name = souped2.select_one("#_101_INSTANCE_2TQe_292283 > div > p:nth-child(2) > span > strong").get_text(strip=True, separator=" ")
+                        result['head_of_mission'] = space_patterns.sub(" ", name).title()
+                        result["url"] = a
+                    case "uzbekistan":
+                        r = client.get(a.replace("home", "home-based-staff"))
+                        souped2 = BeautifulSoup(r.content, "html.parser")
+                        name = souped2.select_one("#_101_INSTANCE_2TQe_387699 > div > table > tbody > tr:nth-child(1) > td:nth-child(2) > p:nth-child(1) > strong > span > span").get_text(strip=True, separator=" ")
+                        result['head_of_mission'] = space_patterns.sub(" ", name).title()
+                        result["url"] = a
+                    case "vietnam":
+                        r = client.get(a.replace("home", "head_mission"))
+                        souped2 = BeautifulSoup(r.content, "html.parser")
+                        name = souped2.select_one("#_101_INSTANCE_2TQe_1200230 > div > p:nth-child(11) > span > strong > span").get_text(strip=True, separator=" ")
+                        result['head_of_mission'] = space_patterns.sub(" ", name).title()
+                        result["url"] = a
                     case _ :
                         result["url"] = a
 
