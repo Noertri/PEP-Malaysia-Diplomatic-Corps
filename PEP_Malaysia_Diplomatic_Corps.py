@@ -471,7 +471,7 @@ def main():
 
             k += 1
 
-    file_name = "{0}_KLN_GOV_MY_HEAD_MISSION.csv".format(datetime.now().strftime("%d%m%Y%H%M%S"))
+    file_name = "{0}_PEP_Malaysia_Diplomatic_Corps.csv".format(datetime.now().strftime("%d%m%Y%H%M%S"))
 
     print(f"Save to {file_name}...")
 
