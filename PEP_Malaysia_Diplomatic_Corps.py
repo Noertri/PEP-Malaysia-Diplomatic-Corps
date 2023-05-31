@@ -50,8 +50,8 @@ def main():
 
             result = {
                     "country": country,
-                    "head_of_mission": "",
-                    "position": "",
+                    "head_of_mission": "vacant",
+                    "position": "Ambassador (Duta Besar) | Diplomatic Corps of Malaysia (Kor Diplomatik Malaysia) | Ambassador Extraordinary and Plenipotentiary of Malaysia | High Commisioner | Chargé d'Affaires".title(),
                     "photo_link": "",
                     "url": ""
                 }
@@ -63,14 +63,17 @@ def main():
                         souped2 = BeautifulSoup(r.content, "html.parser")
                         name = souped2.select_one("#_101_INSTANCE_2TQe_520326 > div > p:nth-child(3) > strong > span").get_text(strip=True, separator=" ")
                         photo = souped2.select_one("#_101_INSTANCE_2TQe_520326 > div > p:nth-child(2) > img").get("src", "")
+                        position = souped2.select_one("#_101_INSTANCE_2TQe_520326 > div > p:nth-child(4) > span").get_text(strip=True, separator=" ")
                         result['head_of_mission'] = space_patterns.sub(" ", name).title()
+                        result["position"] = space_patterns.sub(" ", position).title()
                         result["url"] = a
                         result["photo_link"] = photo
                     case "austria":
                         r = client.get(a.replace("home", "head_mission"))
                         souped2 = BeautifulSoup(r.content, "html.parser")
                         photo = souped2.select_one("#_101_INSTANCE_2TQe_308035 > div > p:nth-child(1) > img").get("src", "")
-                        result['head_of_mission'] = "Ikram Bin Mohammad Ibrahim"
+                        result['head_of_mission'] = "Ikram Bin Mohammad Ibrahim".title()
+                        result["position"] = "Ambassador Extraordinary and Plenipotentiary of Malaysia to the Republic of Austria, with concurrent accreditation to the Slovak Republic, and Permanent Representative of Malaysia to the United Nations and International Organisations in Vienna".title()
                         result["url"] = a
                         result["photo_link"] = photo
                     case "bahrain":
@@ -85,7 +88,9 @@ def main():
                         r = client.get(a.replace("home", "head_mission"))
                         souped2 = BeautifulSoup(r.content, "html.parser")
                         name = souped2.select_one("#_101_INSTANCE_2TQe_860058 > div > p:nth-child(3)").get_text(strip=True, separator=" ")
+                        position = souped2.select_one("#_101_INSTANCE_2TQe_860058 > div > p:nth-child(4)").get_text(strip=True, separator=" ") 
                         result['head_of_mission'] = name.title()
+                        result["position"] = space_patterns.sub(" ", position).title()
                         result["url"] = a
                     case "belgium":
                         r = client.get(a.replace("home", "head_mission"))
@@ -130,7 +135,9 @@ def main():
                         souped3 = BeautifulSoup(r2.content, "html.parser")
                         name = souped2.select_one("#_101_INSTANCE_2TQe_282067 > div > p:nth-child(1) > b").get_text(strip=True, separator=" ")
                         photo = souped3.select_one("#_101_INSTANCE_2TQe_295423 > div > p:nth-child(3) > img").get("src", "")
+                        position = souped3.select_one("#_101_INSTANCE_2TQe_282067 > div > p:nth-child(1)").get_text(strp=True, separator=";").split(";")
                         result['head_of_mission'] = space_patterns.sub(" ", name).title()
+                        result["position"] = space_patterns.sub(" ", position[1]).title()
                         result["url"] = a
                         result["photo_link"] = parse.urljoin(base_url, photo)
                     case "chile":
@@ -161,7 +168,9 @@ def main():
                         r = client.get(a.replace("home", "head_mission"))
                         souped2 = BeautifulSoup(r.content, "html.parser")
                         name = souped2.select_one("#_101_INSTANCE_2TQe_384110 > div > p:nth-child(1) > font > span > b").get_text(strip=True, separator=" ")
+                        position = souped2.select_one("#_101_INSTANCE_2TQe_384110 > div > p:nth-child(2) > b > span").get_text(strip=True, separator=" ") 
                         result['head_of_mission'] = space_patterns.sub(" ", name).title()
+                        result["position"] = space_patterns.sub(" ", position).title()
                         result["url"] = a
                     case "egypt":
                         r = client.get(a.replace("home", "head_mission"))
@@ -232,6 +241,7 @@ def main():
                         souped2 = BeautifulSoup(r.content, "html.parser")
                         name = souped2.select_one("#_101_INSTANCE_2TQe_249911 > div > p:nth-child(4) > span > span > span").get_text(strip=True, separator=" ")
                         result['head_of_mission'] = space_patterns.sub(" ", name).removeprefix("1. ").title()
+                        result["position"] = "Ambassador Extraordinary and Plenipotentiary of Malaysia to Jordan and Palestine".title()
                         result["url"] = a
                     case "kazakhstan":
                         result['head_of_mission'] = "H.E. Ambassador Mohd Adli bin Abdullah"
@@ -275,14 +285,18 @@ def main():
                         souped2 = BeautifulSoup(r.content, "html.parser")
                         name = souped2.select_one("#_101_INSTANCE_2TQe_1414770 > div > p:nth-child(4) > b > span").get_text(strip=True, separator=" ")
                         photo = souped2.select_one("#_101_INSTANCE_2TQe_1414770 > div > p:nth-child(1) > img").get("src", "")
+                        position = souped2.select_one("#_101_INSTANCE_2TQe_1414770 > div > p:nth-child(5) > b > span").get_text(strip=True, separator=" ")
                         result['head_of_mission'] = space_patterns.sub(" ", name).title()
+                        result["position"] = space_patterns.sub(" ", position).title()
                         result["url"] = a
                         result["photo_link"] = photo
                     case "nepal":
                         r = client.get(a.replace("home", "head_mission"))
                         souped2 = BeautifulSoup(r.content, "html.parser")
                         name = souped2.select_one("#_101_INSTANCE_2TQe_301476 > div > p:nth-child(5) > b > span").get_text(strip=True, separator=" ")
+                        position = souped2.select_one("#_101_INSTANCE_2TQe_301476 > div > p:nth-child(6) > b:nth-child(1) > span").get_text(strip=True, separator=" ")
                         result['head_of_mission'] = space_patterns.sub(" ", name).title()
+                        result["position"] = space_patterns.sub(" ", position).title()
                         result["url"] = a
                     case "netherland":
                         r = client.get(a.replace("home", "head_mission"))
@@ -297,6 +311,7 @@ def main():
                         souped2 = BeautifulSoup(r.content, "html.parser")
                         name = souped2.select_one("#_101_INSTANCE_2TQe_321312 > div > p:nth-child(3) > b").get_text(strip=True, separator=" ")
                         result['head_of_mission'] = space_patterns.sub(" ", name).title()
+                        result["position"] = "High Commissioner of Malaysia to New Zealand (3 March 2023 - present) Concurrently accredited to Samoa, Cook Islands and Niue.".title()
                         result["url"] = a
                     case "oman":
                         r = client.get(a.replace("home", "head_mission"))
@@ -363,6 +378,7 @@ def main():
                         souped2 = BeautifulSoup(r.content, "html.parser")
                         name = souped2.select_one("#_101_INSTANCE_2TQe_380392 > div > div:nth-child(1) > div:nth-child(3) > strong > span").get_text(strip=True, separator=" ")
                         result['head_of_mission'] = space_patterns.sub(" ", name).removeprefix("1. ").title()
+                        result["position"] = "Ambassador (Also concurrently to Burkina Faso, Cabo Verde, Republic of The Gambia and Republic of Mali)".title()
                         result["url"] = a
                     case "serbia":
                         r = client.get(a.replace("home", "head_mission"))
@@ -402,6 +418,7 @@ def main():
                         name = souped2.select_one("#_101_INSTANCE_2TQe_591259 > div > p:nth-child(4) > span > b > font").get_text(strip=True, separator=" ")
                         photo = souped2.select_one("#_101_INSTANCE_2TQe_591259 > div > p:nth-child(3) > img").get("src", "")
                         result['head_of_mission'] = space_patterns.sub(" ", name).title()
+                        result["position"] = "Ambassador of Malaysia to Sweden (concurrently accredited to Denmark, Iceland & Norway)".title()
                         result["url"] = a
                         result["photo_link"] = parse.urljoin(base_url, photo)
                     case "taiwan":
@@ -409,6 +426,7 @@ def main():
                         souped2 = BeautifulSoup(r.content, "html.parser")
                         name = souped2.select_one("#_101_INSTANCE_2TQe_463350 > div > table > tbody > tr:nth-child(12) > td:nth-child(2) > p > strong > span").get_text(strip=True, separator=" ")
                         result['head_of_mission'] = space_patterns.sub(" ", name).title()
+                        result["position"] = "president".title()
                         result["url"] = a
                     case "thailand":
                         r = client.get(a.replace("home", "head_mission"))
@@ -455,6 +473,7 @@ def main():
                         souped2 = BeautifulSoup(r.content, "html.parser")
                         name = souped2.select_one("#_101_INSTANCE_2TQe_387699 > div > table > tbody > tr:nth-child(1) > td:nth-child(2) > p:nth-child(1) > strong > span > span").get_text(strip=True, separator=" ")
                         result['head_of_mission'] = space_patterns.sub(" ", name).title()
+                        result["position"] = "Ambassador (Concurrently accredited to Kyrgyzstan and Tajikistan)".title()
                         result["url"] = a
                     case "vietnam":
                         r = client.get(a.replace("home", "head_mission"))
@@ -464,6 +483,7 @@ def main():
                         result["url"] = a
                     case _ :
                         result["url"] = a
+                        result["position"] = ""
 
             print("country: {0}; head of mission: {1}".format(result["country"], result["head_of_mission"]))
 
@@ -481,9 +501,9 @@ def main():
             writer.writeheader()
             writer.writerows(tasks)
             f.close()
-        print("Berhasil!!!")
+        print("Done!!!")
     except Exception as e:
-        print(f"{e}")
+        print(f"Error: {e}")
 
 
 if __name__ == "__main__":
