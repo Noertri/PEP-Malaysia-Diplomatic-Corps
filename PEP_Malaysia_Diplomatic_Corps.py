@@ -51,7 +51,7 @@ def main():
             result = {
                     "country": country,
                     "head_of_mission": "vacant",
-                    "position": "Ambassador (Duta Besar) / Diplomatic Corps of Malaysia (Kor Diplomatik Malaysia) / Ambassador Extraordinary and Plenipotentiary of Malaysia / High Commisioner / Chargé d'Affaires".title(),
+                    "position": "Ambassador (Duta Besar)/Diplomatic Corps of Malaysia (Kor Diplomatik Malaysia)/Ambassador Extraordinary and Plenipotentiary of Malaysia/High Commisioner/Chargé d'Affaires".title(),
                     "photo_link": "",
                     "url": ""
                 }
@@ -88,9 +88,7 @@ def main():
                         r = client.get(a.replace("home", "head_mission"))
                         souped2 = BeautifulSoup(r.content, "html.parser")
                         name = souped2.select_one("#_101_INSTANCE_2TQe_860058 > div > p:nth-child(3)").get_text(strip=True, separator=" ")
-                        position = souped2.select_one("#_101_INSTANCE_2TQe_860058 > div > p:nth-child(4)").get_text(strip=True, separator=" ") 
-                        result['head_of_mission'] = name.title()
-                        result["position"] = space_patterns.sub(" ", position).title()
+                        result['head_of_mission'] = space_patterns.sub(" ", name).title()
                         result["url"] = a
                     case "belgium":
                         r = client.get(a.replace("home", "head_mission"))
@@ -166,9 +164,7 @@ def main():
                         r = client.get(a.replace("home", "head_mission"))
                         souped2 = BeautifulSoup(r.content, "html.parser")
                         name = souped2.select_one("#_101_INSTANCE_2TQe_384110 > div > p:nth-child(1) > font > span > b").get_text(strip=True, separator=" ")
-                        position = souped2.select_one("#_101_INSTANCE_2TQe_384110 > div > p:nth-child(2) > b > span").get_text(strip=True, separator=" ") 
                         result['head_of_mission'] = space_patterns.sub(" ", name).title()
-                        result["position"] = space_patterns.sub(" ", position).title()
                         result["url"] = a
                     case "egypt":
                         r = client.get(a.replace("home", "head_mission"))
@@ -238,7 +234,7 @@ def main():
                         r = client.get(a.replace("home", "home-based-staff"))
                         souped2 = BeautifulSoup(r.content, "html.parser")
                         name = souped2.select_one("#_101_INSTANCE_2TQe_249911 > div > p:nth-child(4) > span > span > span").get_text(strip=True, separator=" ")
-                        result['head_of_mission'] = space_patterns.sub(" ", name).removeprefix("1. ").title()
+                        result['head_of_mission'] = space_patterns.sub(" ", name).removeprefix("1.").title()
                         result["position"] = "Ambassador Extraordinary and Plenipotentiary of Malaysia to Jordan and Palestine".title()
                         result["url"] = a
                     case "kazakhstan":
@@ -292,9 +288,7 @@ def main():
                         r = client.get(a.replace("home", "head_mission"))
                         souped2 = BeautifulSoup(r.content, "html.parser")
                         name = souped2.select_one("#_101_INSTANCE_2TQe_301476 > div > p:nth-child(5) > b > span").get_text(strip=True, separator=" ")
-                        position = souped2.select_one("#_101_INSTANCE_2TQe_301476 > div > p:nth-child(6) > b:nth-child(1) > span").get_text(strip=True, separator=" ")
                         result['head_of_mission'] = space_patterns.sub(" ", name).title()
-                        result["position"] = space_patterns.sub(" ", position).title()
                         result["url"] = a
                     case "netherland":
                         r = client.get(a.replace("home", "head_mission"))
@@ -375,7 +369,7 @@ def main():
                         r = client.get(a.replace("home", "home-based-staff"))
                         souped2 = BeautifulSoup(r.content, "html.parser")
                         name = souped2.select_one("#_101_INSTANCE_2TQe_380392 > div > div:nth-child(1) > div:nth-child(3) > strong > span").get_text(strip=True, separator=" ")
-                        result['head_of_mission'] = space_patterns.sub(" ", name).removeprefix("1. ").title()
+                        result['head_of_mission'] = space_patterns.sub(" ", name).removeprefix("1.").title()
                         result["position"] = "Ambassador (Also concurrently to Burkina Faso, Cabo Verde, Republic of The Gambia and Republic of Mali)".title()
                         result["url"] = a
                     case "serbia":
