@@ -4,10 +4,15 @@ from bs4 import BeautifulSoup
 import re
 from urllib import parse
 from datetime import datetime
+import os
 
 
 client = httpx.Client(verify=False)
 base_url = "https://www.kln.gov.my"
+
+if not os.path.isdir("hasil"):
+    os.mkdir("hasil")
+
 
 def main():
     headers = {
@@ -279,9 +284,7 @@ def main():
                         souped2 = BeautifulSoup(r.content, "html.parser")
                         name = souped2.select_one("#_101_INSTANCE_2TQe_1414770 > div > p:nth-child(4) > b > span").get_text(strip=True, separator=" ")
                         photo = souped2.select_one("#_101_INSTANCE_2TQe_1414770 > div > p:nth-child(1) > img").get("src", "")
-                        position = souped2.select_one("#_101_INSTANCE_2TQe_1414770 > div > p:nth-child(5) > b > span").get_text(strip=True, separator=" ")
                         result['head_of_mission'] = space_patterns.sub(" ", name).title()
-                        result["position"] = space_patterns.sub(" ", position).title()
                         result["url"] = a
                         result["photo_link"] = photo
                     case "nepal":
@@ -303,7 +306,7 @@ def main():
                         souped2 = BeautifulSoup(r.content, "html.parser")
                         name = souped2.select_one("#_101_INSTANCE_2TQe_321312 > div > p:nth-child(3) > b").get_text(strip=True, separator=" ")
                         result['head_of_mission'] = space_patterns.sub(" ", name).title()
-                        result["position"] = "High Commissioner of Malaysia to New Zealand (3 March 2023 - present) Concurrently accredited to Samoa, Cook Islands and Niue.".title()
+                        result["position"] = "High Commissioner of Malaysia to New Zealand Concurrently accredited to Samoa, Cook Islands and Niue.".title()
                         result["url"] = a
                     case "oman":
                         r = client.get(a.replace("home", "head_mission"))
@@ -485,10 +488,10 @@ def main():
 
     file_name = "{0}_PEP_Malaysia_Diplomatic_Corps.csv".format(datetime.now().strftime("%d%m%Y%H%M%S"))
 
-    print(f"Save to {file_name}...")
+    print(f"Save to hasil\{file_name}...")
 
     try:
-        with open(file_name, "w", newline="", encoding="utf-8") as f:
+        with open(os.path.join("hasil", file_name), "w", newline="", encoding="utf-8") as f:
             writer = csv.DictWriter(f, delimiter=";", fieldnames=("country", "head_of_mission", "position", "url", "photo_link"))
             writer.writeheader()
             writer.writerows(tasks)
