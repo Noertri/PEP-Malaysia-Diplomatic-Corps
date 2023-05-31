@@ -46,12 +46,12 @@ def main():
 
             a = container.select_one("li a").get("href", None)
 
-            space_patterns = re.compile(r"\s{2,}|\xa0{1,}")
+            space_patterns = re.compile(r"\s{2,}/\xa0{1,}")
 
             result = {
                     "country": country,
                     "head_of_mission": "vacant",
-                    "position": "Ambassador (Duta Besar) | Diplomatic Corps of Malaysia (Kor Diplomatik Malaysia) | Ambassador Extraordinary and Plenipotentiary of Malaysia | High Commisioner | Chargé d'Affaires".title(),
+                    "position": "Ambassador (Duta Besar) / Diplomatic Corps of Malaysia (Kor Diplomatik Malaysia) / Ambassador Extraordinary and Plenipotentiary of Malaysia / High Commisioner / Chargé d'Affaires".title(),
                     "photo_link": "",
                     "url": ""
                 }
@@ -135,9 +135,7 @@ def main():
                         souped3 = BeautifulSoup(r2.content, "html.parser")
                         name = souped2.select_one("#_101_INSTANCE_2TQe_282067 > div > p:nth-child(1) > b").get_text(strip=True, separator=" ")
                         photo = souped3.select_one("#_101_INSTANCE_2TQe_295423 > div > p:nth-child(3) > img").get("src", "")
-                        position = souped3.select_one("#_101_INSTANCE_2TQe_282067 > div > p:nth-child(1)").get_text(strp=True, separator=";").split(";")
                         result['head_of_mission'] = space_patterns.sub(" ", name).title()
-                        result["position"] = space_patterns.sub(" ", position[1]).title()
                         result["url"] = a
                         result["photo_link"] = parse.urljoin(base_url, photo)
                     case "chile":
