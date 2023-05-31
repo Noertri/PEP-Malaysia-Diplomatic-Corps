@@ -51,6 +51,7 @@ def main():
             result = {
                     "country": country,
                     "head_of_mission": "",
+                    "position": "",
                     "photo_link": "",
                     "url": ""
                 }
@@ -476,7 +477,7 @@ def main():
 
     try:
         with open(file_name, "w", newline="", encoding="utf-8") as f:
-            writer = csv.DictWriter(f, delimiter=";", fieldnames=("country", "head_of_mission", "url", "photo_link"))
+            writer = csv.DictWriter(f, delimiter=";", fieldnames=("country", "head_of_mission", "position", "url", "photo_link"))
             writer.writeheader()
             writer.writerows(tasks)
             f.close()
