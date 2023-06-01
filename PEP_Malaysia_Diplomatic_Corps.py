@@ -51,7 +51,7 @@ def main():
 
             a = container.select_one("li a").get("href", None)
 
-            space_patterns = re.compile(r"\s{2,}/\xa0{1,}")
+            space_patterns = re.compile(r"\s{2,}|\\xa0{1,}")
 
             result = {
                     "country": country,
@@ -455,7 +455,9 @@ def main():
                         r = client.get(a.replace("home", "head_mission"))
                         souped2 = BeautifulSoup(r.content, "html.parser")
                         name = souped2.select_one("#_101_INSTANCE_2TQe_384214 > div > p:nth-child(24) > strong > span").get_text(strip=True, separator=" ")
-                        result['head_of_mission'] = space_patterns.sub(" ", name).replace("(5/8/2021 - )", "").title()
+                        suffix_pattern = re.compile(r"\(\d{1,}/\d{1,}/\d{4,}\s*-\s*\)")
+                        name = suffix_pattern.sub(" ", name)
+                        result['head_of_mission'] = space_patterns.sub(" ", name).title()
                         result["url"] = a
                     case "united states":
                         r = client.get(a.replace("home", "head_mission"))
@@ -480,7 +482,7 @@ def main():
                         result["url"] = a
                         result["position"] = ""
 
-            print("country: {0}; head of mission: {1}".format(result["country"], result["head_of_mission"]))
+            print("{2}: country: {0}; head of mission: {1}".format(result["country"], result["head_of_mission"], k+1))
 
             tasks.append(result)
 
